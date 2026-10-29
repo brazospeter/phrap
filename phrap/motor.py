@@ -7,6 +7,8 @@ from .modules.ccsv import save
 import copy
 import traceback
 
+import csv
+
 @dataclass
 class AmbientState:
     pressure: float
@@ -102,7 +104,25 @@ class Motor:
             print(traceback.format_exc())
 
     def save_data(self, file_name):
-        save(file_name, self.data.values)
+        save(file_name + ".csv", self.data.values)
+
+    def save_eng(self, file_name, diameter, length, residual, description = None):
+        data = []
+        for desc in description:
+            data.append([desc])
+        data.append([file_name, str(round(diameter * 1000, 1)), str(round(length * 1000, 1)), "P", str(self.data.get("Total Propellant Mass Expelled (kg)", -1)), str(self.data.get("Total Propellant Mass Expelled (kg)", -1) + self.data.get("Total Oxidizer Mass (kg)", -1) + residual), "BRAZOSWOOD"])
+
+        for i in range(len(self.data.values["Time (s)"])):
+            data.append([self.data.get("Time (s)", i), self.data.get("Thrust (N)", i)])
+
+        with open(file_name + ".eng", 'w', newline='') as file:
+            for block in data:
+                string = ""
+                for item in block:
+                    string += str(item) + " "
+                file.write(string)
+                file.write("\n")
+
 
     @property
     def total_impulse(self):

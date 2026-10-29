@@ -41,6 +41,7 @@ def load(file_name, key_mapping: dict = None):
 
 def save(file_name, key_mapping: dict):
     data = [[]]
+
     for k, v in key_mapping.items():
         data[0].append(k)
         size = len(v)
@@ -51,6 +52,6 @@ def save(file_name, key_mapping: dict):
             block.append(v[i])
         data.append(block)
 
-    with open(file_name + '.csv', 'w', newline='') as csvfile:
+    with open(file_name, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(data) # Use writerows for multiple rows

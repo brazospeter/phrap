@@ -1,8 +1,8 @@
 from phrap.modules.ccsv import load
 from phrap.modules.curve import Curve
 
-file1_name = "new_horizon_v1.3.6.csv"
-file2_name = "new_horizon_v1.3.4.csv"
+file1_name = "new_horizon_v1.4.2.2.csv"
+file2_name = "new_horizon_v1.4.2.1.csv"
 
 switch_file_names = False
 
